@@ -1,0 +1,8 @@
+[Unit]
+Description="Action time for /home directory backup..."
+
+[Timer]
+OnCalendar=*:00/2
+
+[Install]
+WantedBy=test.service
