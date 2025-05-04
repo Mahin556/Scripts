@@ -1,0 +1,8 @@
+[Unit]
+Description="Action time for test.sh execution"
+
+[Service]
+ExecStart=/bin/bash /root/Linux/test.sh
+
+[Install]
+WantedBy=multi-user.target
