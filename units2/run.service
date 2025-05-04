@@ -1,0 +1,14 @@
+[Unit]
+Description=Run Service
+After=network.target
+
+[Service]
+ExecStart=/root/Linux/units2/run.sh
+Restart=always
+WorkingDirectory=/root/Linux/units2
+User=root
+Group=root
+Environment=GOPATH=/root/Linux/units2/go
+
+[Install]
+WantedBy=multi-user.target
