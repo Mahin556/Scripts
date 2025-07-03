@@ -1,0 +1,8 @@
+echo  "script with .txt extension"
+echo "no syntex highlighting"
+echo "no error detection"
+
+pwd
+free -h
+ls
+df -h`
