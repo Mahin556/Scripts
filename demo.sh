@@ -37,6 +37,19 @@ This is a multi-line string \
 ####### Script ended #########
 "
 
+"""
+Both single and double quotes are used to define strings, but they behave differently in terms of how they handle variables and special characters.
+Single Quotes ('):
+    Treat the enclosed content literally.
+    No variable expansion or special character interpretation.
+    echo '$abcd'   # Output: $abcd
+
+Double Quotes (""):
+    Allow variable expansion and interpret certain special characters.
+    abcd="Hello"
+    echo "$abcd"   # Output: Hello
+"""
+
 # yum install -y httpd \
 # nginx \
 # mysql-server
