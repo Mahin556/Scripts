@@ -1,6 +1,6 @@
 #!/bin/bash
 while true; do
-  clear #command -v clear: Checks if the clear command exists and is available in the system's PATH.
+  command -v clear >/dev/null && clear #command -v clear: Checks if the clear command exists and is available in the system's PATH.
   echo "=== System Status ==="
   uptime
   echo
