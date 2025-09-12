@@ -60,22 +60,70 @@ if [[ $a == "hello" ]]; then echo "Match"; fi
 
 # 🔹 4. File Test Operators
 
-Used to check files, directories, permissions, etc.
+### File Existence & Type
+| Operator  | Test                                                     |
+| --------- | -------------------------------------------------------- |
+| `-e file` | File exists                                              |
+| `-a file` | File exists (same as `-e`, but **deprecated**)           |
+| `-f file` | File is a **regular file**                               |
+| `-d file` | File is a **directory**                                  |
+| `-b file` | File is a **block device** (e.g. disk)                   |
+| `-c file` | File is a **character device** (e.g. terminal, keyboard) |
+| `-p file` | File is a **named pipe (FIFO)**                          |
+| `-S file` | File is a **socket**                                     |
+| `-L file` | File is a **symbolic link**                              |
 
-| Operator          | Test                        |
-| ----------------- | --------------------------- |
-| `-e file`         | File exists                 |
-| `-f file`         | Regular file exists         |
-| `-d dir`          | Directory exists            |
-| `-L file`         | Symbolic link               |
-| `-r file`         | File is readable            |
-| `-w file`         | File is writable            |
-| `-x file`         | File is executable          |
-| `-s file`         | File size > 0               |
-| `-O file`         | File owned by current user  |
-| `-G file`         | File owned by current group |
-| `file1 -nt file2` | file1 is newer than file2   |
-| `file1 -ot file2` | file1 is older than file2   |
+### File Permissions
+| Operator  | Test                        |
+| --------- | --------------------------- |
+| `-r file` | File is **readable**        |
+| `-w file` | File is **writable**        |
+| `-x file` | File is **executable**      |
+| `-u file` | File has **setuid** bit set |
+| `-g file` | File has **setgid** bit set |
+| `-k file` | File has **sticky bit** set |
+
+### File Size & Content
+| Operator  | Test                               |
+| --------- | ---------------------------------- |
+| `-s file` | File size is **greater than zero** |
+
+### File Ownership
+| Operator  | Test                                      |
+| --------- | ----------------------------------------- |
+| `-O file` | File is **owned by current user**         |
+| `-G file` | File is **owned by current user’s group** |
+
+### File Timestamps
+| Operator          | Test                                                            |
+| ----------------- | --------------------------------------------------------------- |
+| `file1 -nt file2` | `file1` is **newer** than `file2` (based on modification time)  |
+| `file1 -ot file2` | `file1` is **older** than `file2`                               |
+| `file1 -ef file2` | `file1` and `file2` are the **same file** (same device & inode) |
+| `-N file`         | File was **modified since last read**                           |
+
+### Examples
+```bash
+#!/bin/bash
+
+file="/etc/passwd"
+
+if [ -f "$file" ]; then
+  echo "$file is a regular file"
+fi
+
+if [ -r "$file" ] && [ -w "$file" ]; then
+  echo "$file is readable and writable"
+fi
+
+if [ -d "/tmp" ]; then
+  echo "/tmp is a directory"
+fi
+
+if [ "$file" -nt "/etc/hosts" ]; then
+  echo "$file is newer than /etc/hosts"
+fi
+```
 
 ---
 
