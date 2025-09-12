@@ -67,3 +67,44 @@ Argument: banana
 Argument: cherry pie
 ```
 
+```
+echo $0
+echo $1
+echo $2
+echo $3
+echo $4
+echo $#
+echo "$*"
+echo "$@"
+echo $$
+echo $?
+echo $!
+echo $_
+
+```
+```
+echo 'Looping with "$*":'
+for arg in "$*"; do
+  echo "[$arg]"
+done
+```
+Output:-
+```
+Looping with "$*":
+[1 2 3 4]
+```
+
+```
+echo 'Looping with "$@":'
+for arg in "$@"; do
+  echo "[$arg]"
+done
+```
+Output:-
+```
+Looping with "$@":
+[1]
+[2]
+[3]
+[4]
+```
