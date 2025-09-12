@@ -79,6 +79,15 @@ printf "%8.3f\n" $num  # Width 8, 3 decimals →    3.142
 ```
 
 ## Escapes and Special Characters
+| Escape | Meaning      | Example                    | Output         |
+| ------ | ------------ | -------------------------- | -------------- |
+| `\n`   | New line     | `echo -e "Line1\nLine2"`   | Line1<br>Line2 |
+| `\t`   | Tab          | `echo -e "Col1\tCol2"`     | Col1    Col2   |
+| `\v`   | Vertical tab | `echo -e "A\vB"`           | A<br>   B      |
+| `\\`   | Backslash    | `echo -e "C:\\Path"`       | C:\Path        |
+| `\"`   | Double quote | `echo -e "He said \"Hi\""` | He said "Hi"   |
+| `\a`   | Alert / bell | `echo -e "\a"`             | (system beep)  |
+
 ```bash
 printf "Line1\nLine2\n"
 printf "Column1\tColumn2\n"
@@ -255,4 +264,34 @@ var="abcdef"
 echo ${var:0:3}   # abc
 echo ${var:(-3)}  # def (last 3 chars)
 echo ${var: -3}   # def (space before - required)
+```
+
+## Default Values in Bash
+| Form              | Meaning                                                                     |
+| ----------------- | --------------------------------------------------------------------------- |
+| `${var:-default}` | Use `default` **if `$var` is unset or empty**, but do not change `$var`.    |
+| `${var:=default}` | Use `default` **if `$var` is unset or empty**, and **assign it to `$var`**. |
+| `${var:+value}`   | Use `value` **if `$var` is set and not empty**.                             |
+| `${var:?message}` | Throw an error with `message` if `$var` is unset or empty.                  |
+
+```bash
+#!/bin/bash
+
+# Variable not set
+echo "${name:-Guest}"     # Guest (default, does NOT assign)
+
+# Assign default if unset
+echo "${name:=Guest}"     # Guest (assigns to $name)
+echo "$name"              # Guest
+
+# Value only if set
+city="Delhi"
+echo "${city:+India}"     # India
+unset city
+echo "${city:+India}"     # (empty)
+
+# Error if unset
+unset file
+echo "${file:?File not defined}"  # Exits with message: File not defined
+
 ```
