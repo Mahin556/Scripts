@@ -163,3 +163,19 @@ echo $var1 $var2
 var1=23
 echo $var1 $var2
 ```
+
+To get the lenght of the variable value
+```
+variableName=value
+echo ${#variableName}
+```
+```
+#!/bin/bash
+# String length example
+
+str="GeeksForGeeks"
+echo "The string is: $str"
+echo "Length of string: ${#str}"
+
+```
+
