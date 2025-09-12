@@ -9,6 +9,13 @@ Syntax
 Variable_name=data(int,string,char,array,null,bool)
 No space around `=`
 
+Key Commands for Managing Variables
+- env – show environment variables
+- printenv – print environment variables (all or specific)
+- set – show all shell + environment variables + functions
+- unset – remove a variable
+- export – make a variable available to sub-shells
+
 Properties
 ```
 Overwritable
