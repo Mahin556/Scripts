@@ -176,6 +176,5 @@ echo ${#variableName}
 str="GeeksForGeeks"
 echo "The string is: $str"
 echo "Length of string: ${#str}"
-
 ```
 
