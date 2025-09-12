@@ -140,7 +140,7 @@ printenv   # shows environment variables only
 env        # another way to show environment variables
 ```
 
-Variable Defining in Script
+### Variable Defining in Script
 ```
 #!/bin/bash
 # User defined variables
@@ -153,4 +153,13 @@ LAST_NAME="Misra"
 
 echo "My name is $FIRST_NAME $LAST_NAME."
 exit 118
+```
+```
+#!/bin/bash
+var1="Devil"
+var2=23
+readonly var1
+echo $var1 $var2
+var1=23
+echo $var1 $var2
 ```
