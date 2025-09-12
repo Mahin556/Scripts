@@ -643,3 +643,6 @@ do
     ((initNumber++))
 done
 ```
+- Break normally breaks only one loop (the innermost one).
+- Break N breaks out of N levels of loops.
+- So break 2 breaks out of both the for loop and the outer while loop.
