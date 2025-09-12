@@ -123,3 +123,32 @@ bad_function
 echo "This line will never run"
 ```
 
+
+```
+#!/bin/bash
+
+# Function for installation
+function install() {
+    echo "Executing ${FUNCNAME[0]} - start"
+    echo "Installing $1"
+    echo "Executing ${FUNCNAME[0]} - end"
+}
+
+# Function for configuration
+function configuration() {
+    echo "Configuring $1"
+    echo "Inside ${FUNCNAME[0]}"
+}
+
+# Function for deployment
+function deploy() {
+    echo "Deploying $1"
+    echo "Inside ${FUNCNAME[0]}"
+}
+
+# Function calls with parameters
+install "nginx"
+configuration "nginx"
+deploy "webapplication"
+
+```
