@@ -216,4 +216,194 @@ echo "${var1} ${var2} ${var3}"
 ```
 
 
+# 📌 Ways to Store Command Output in a Variable
+
+## 1. ✅ Using `$( ... )` (Preferred Modern Method)
+
+This is the **recommended** way — cleaner, easier to read, supports nesting.
+
+```bash
+#!/bin/bash
+CURRENT_DIR=$(pwd)
+echo "Current Directory: ${CURRENT_DIR}"
+```
+
+---
+
+## 2. ⚠️ Using Backticks `` `...` `` (Deprecated)
+
+Older syntax, still works but harder to nest.
+
+```bash
+#!/bin/bash
+CURRENT_DIR=`pwd`
+echo "Current Directory: ${CURRENT_DIR}"
+```
+
+---
+
+## 3. Using `read` with Command Substitution
+
+If you want to directly assign to variables via `read`:
+
+```bash
+#!/bin/bash
+read CURRENT_DIR <<< "$(pwd)"
+echo "Current Directory: ${CURRENT_DIR}"
+```
+
+---
+
+## 4. Capturing Multi-Line Output into an Array
+
+When a command produces multiple lines, you can store them in an array:
+
+```bash
+#!/bin/bash
+FILES=($(ls))
+echo "First file: ${FILES[0]}"
+echo "All files: ${FILES[@]}"
+```
+
+---
+
+## 5. Using `mapfile` / `readarray` (Preferred for Arrays)
+
+This safely stores each line into an array:
+
+```bash
+#!/bin/bash
+mapfile -t FILES < <(ls)
+echo "Total files: ${#FILES[@]}"
+```
+
+---
+
+## 6. Storing Command Output into a Variable with `while read`
+
+```bash
+#!/bin/bash
+OUTPUT=""
+while read line; do
+    OUTPUT+="$line "
+done < <(ls)
+echo "Files: $OUTPUT"
+```
+
+---
+
+## 7. Assigning Exit Status Instead of Output
+
+⚠️ Don’t confuse capturing **output** vs **exit status**.
+For exit status, use `$?`:
+
+```bash
+ls /tmp > /dev/null
+STATUS=$?
+echo "Exit status: $STATUS"
+```
+
+---
+
+✅ **Summary**
+
+* Use `$(...)` for **most cases**.
+* Use `mapfile` or `readarray` for multi-line outputs into arrays.
+* Use backticks only for legacy scripts.
+
+Great topic 👍 In **Bash**, a **readonly variable** is a variable whose value cannot be changed once it is assigned. This is useful when you want to **protect constants** or ensure critical values in your script aren’t accidentally modified.
+
+---
+
+# 📌 Readonly Variables in Bash
+
+## 🔹 1. Declaring a Readonly Variable
+
+You can make a variable readonly in two ways:
+
+### Using `readonly`
+
+```bash
+#!/bin/bash
+readonly PI=3.14159
+echo "Value of PI: $PI"
+PI=4.5   # ❌ Error: variable is read-only
+```
+
+### Using `declare -r`
+
+```bash
+#!/bin/bash
+declare -r GREETING="Hello, World!"
+echo "$GREETING"
+GREETING="Hi"   # ❌ Error
+```
+
+Both are equivalent.
+
+---
+
+## 🔹 2. Checking Readonly Variables
+
+List all readonly variables:
+
+```bash
+readonly
+```
+
+List a specific variable:
+
+```bash
+readonly -p | grep PI
+```
+
+---
+
+## 🔹 3. Making an Existing Variable Readonly
+
+```bash
+#!/bin/bash
+NAME="Mahin"
+readonly NAME
+NAME="Other"   # ❌ Error
+```
+
+---
+
+## 🔹 4. Readonly Functions
+
+You can also make functions readonly:
+
+```bash
+#!/bin/bash
+myfunc() {
+  echo "This is a function"
+}
+
+readonly -f myfunc
+myfunc   # Works
+
+myfunc() { echo "Redefined"; }   # ❌ Error: function is read-only
+```
+
+---
+
+## 🔹 5. Key Points
+
+* Once declared readonly, a variable **cannot** be unset (`unset VAR` will fail).
+* Useful for **constants**, **paths**, or **critical config values**.
+* Scope: readonly applies within the **current shell session** or script.
+
+---
+
+✅ Example in action:
+
+```bash
+#!/bin/bash
+readonly APP_VERSION="1.0.0"
+echo "App Version: $APP_VERSION"
+
+# Attempt to modify
+APP_VERSION="2.0.0"   # ❌ bash: APP_VERSION: readonly variable
+```
 
