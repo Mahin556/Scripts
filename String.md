@@ -256,5 +256,3 @@ echo ${var:0:3}   # abc
 echo ${var:(-3)}  # def (last 3 chars)
 echo ${var: -3}   # def (space before - required)
 ```
-
-```
