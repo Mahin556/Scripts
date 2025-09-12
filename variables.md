@@ -406,4 +406,134 @@ echo "App Version: $APP_VERSION"
 # Attempt to modify
 APP_VERSION="2.0.0"   # ❌ bash: APP_VERSION: readonly variable
 ```
+---
 
+# 📌 Variable Scope in Bash
+
+## 🔹 1. Global Variables (default)
+
+* By default, every variable you declare is **global** to the current shell and its child processes (unless exported).
+* Accessible everywhere in the script after declaration.
+
+```bash
+#!/bin/bash
+GLOBAL_VAR="I am global"
+
+function show_global {
+  echo "Inside function: $GLOBAL_VAR"
+}
+
+show_global
+echo "Outside function: $GLOBAL_VAR"
+```
+
+✅ Output:
+
+```
+Inside function: I am global
+Outside function: I am global
+```
+
+---
+
+## 🔹 2. Local Variables (inside functions)
+
+* Use `local` inside a function to restrict the variable scope to that function.
+* Prevents accidental modification of variables outside the function.
+
+```bash
+#!/bin/bash
+VAR="outside"
+
+function demo {
+  local VAR="inside"
+  echo "Inside function: $VAR"
+}
+
+demo
+echo "Outside function: $VAR"
+```
+
+✅ Output:
+
+```
+Inside function: inside
+Outside function: outside
+```
+
+---
+
+## 🔹 3. Environment Variables
+
+* Global variables that are exported with `export` become **environment variables**.
+* Available to **child processes** but not to parent shells.
+
+```bash
+#!/bin/bash
+export PATH_VAR="I am exported"
+
+bash -c 'echo "In subshell: $PATH_VAR"'
+echo "In current shell: $PATH_VAR"
+```
+
+✅ Output:
+
+```
+In subshell: I am exported
+In current shell: I am exported
+```
+
+---
+
+## 🔹 4. Special Cases
+
+* **Subshells**: Running commands in `$(...)` or inside `( )` creates a subshell where modifications do not affect the parent shell.
+
+```bash
+#!/bin/bash
+VAR="original"
+( VAR="changed in subshell"; echo "Inside subshell: $VAR" )
+echo "Outside subshell: $VAR"
+```
+
+✅ Output:
+
+```
+Inside subshell: changed in subshell
+Outside subshell: original
+```
+
+---
+
+## 🔹 5. Function vs Script Scope
+
+* Variables in a script are not automatically visible in the **parent shell** unless you `export` them or explicitly `source` the script.
+
+```bash
+#!/bin/bash
+SCRIPT_VAR="inside script"
+```
+
+Run it:
+
+```bash
+./myscript.sh
+echo $SCRIPT_VAR   # ❌ nothing (not exported)
+```
+
+But if you `source` it:
+
+```bash
+source myscript.sh
+echo $SCRIPT_VAR   # ✅ inside script
+```
+
+---
+
+# ✅ Summary
+
+* **Global** (default): Visible everywhere in the script.
+* **Local** (`local`): Visible only inside the function.
+* **Environment** (`export`): Passed to child processes.
+* **Subshell**: Changes don’t affect parent shell.
+* **Sourcing**: Runs a script in the current shell → keeps variables.
