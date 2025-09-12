@@ -595,4 +595,51 @@ done
 * `continue` → skip current iteration, go to next
 * `break N` → exit multiple nested loops
 
+```
+init=0
+while [[ $init -lt 10 ]];do
+    ((init++))
+    if [[ $init -eq 5 ]];then
+        continue
+    fi
+    echo ${init}
+done
+```
+```
+init=0; while [[ $init -lt 10 ]]; do ((init++)); if [[ $init -eq 5 ]]; then continue; fi; echo $init; done
+```
+```
+Here is the exact **Bash code** from the image provided:
 
+```bash
+#!/bin/bash
+initNumber=1
+while [[ ${initNumber} -lt 3 ]]
+do
+    for i in item1 item2 item3
+    do
+        echo "${initNumber} - ${i}"
+        if [[ $i == item2 ]]
+        then
+            break 2
+        fi
+    done
+    ((initNumber++))
+done
+```
+```
+#!/bin/bash
+initNumber=1
+while [[ ${initNumber} -lt 3 ]]
+do
+    for i in item1 item2 item3
+    do
+        echo "${initNumber} - ${i}"
+        if [[ $i == item2 ]]
+        then
+            break 2
+        fi
+    done
+    ((initNumber++))
+done
+```
