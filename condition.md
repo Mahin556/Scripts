@@ -222,3 +222,164 @@ Bash supports conditions using:
 * Integer, string, file test operators
 * Pattern (`*`, `?`) and regex (`=~`)
 * Command exit codes & short-circuiting
+
+# 📝 Bash `if` / `elif` / `fi`
+
+---
+
+## 🔹 1. Basic Syntax
+
+```bash
+if [ condition ]; then
+    # commands to execute if condition is true
+fi
+```
+
+* **`[ condition ]`** → Classic test (POSIX)
+* **`[[ condition ]]`** → Extended Bash test (supports regex & pattern matching)
+* **`(( condition ))`** → Arithmetic evaluation
+
+`fi` closes the `if` block (it's `if` backward).
+
+---
+
+## 🔹 2. `if ... else` Syntax
+
+```bash
+if [ condition ]; then
+    # if branch
+else
+    # else branch
+fi
+```
+
+Example:
+
+```bash
+#!/bin/bash
+a=5
+if [ $a -gt 10 ]; then
+    echo "Greater than 10"
+else
+    echo "10 or less"
+fi
+```
+
+Output:
+
+```
+10 or less
+```
+
+---
+
+## 🔹 3. `if ... elif ... else ... fi` Syntax
+
+```bash
+if [ condition1 ]; then
+    # commands if condition1 is true
+elif [ condition2 ]; then
+    # commands if condition2 is true
+else
+    # commands if all above conditions are false
+fi
+```
+
+Example:
+
+```bash
+#!/bin/bash
+a=15
+if [ $a -lt 10 ]; then
+    echo "Less than 10"
+elif [ $a -eq 15 ]; then
+    echo "Equal to 15"
+else
+    echo "Greater than 10 but not 15"
+fi
+```
+
+Output:
+
+```
+Equal to 15
+```
+
+---
+
+## 🔹 4. Using `[[ ]]` for safer checks
+
+```bash
+if [[ $name == "Alice" ]]; then
+    echo "Hello Alice"
+elif [[ $name == "Bob" ]]; then
+    echo "Hello Bob"
+else
+    echo "Who are you?"
+fi
+```
+
+* Supports **string pattern matching** (`==`, `!=`)
+* Supports **regex** (`=~`)
+
+---
+
+## 🔹 5. Using `(( ))` for arithmetic conditions
+
+```bash
+x=7
+if (( x > 10 )); then
+    echo "x > 10"
+elif (( x == 7 )); then
+    echo "x is 7"
+else
+    echo "x < 10 and not 7"
+fi
+```
+
+---
+
+## 🔹 6. Combining conditions with logical operators
+
+```bash
+a=5; b=8
+
+if [[ $a -lt 10 && $b -gt 5 ]]; then
+    echo "Both conditions true"
+elif [[ $a -eq 5 || $b -eq 10 ]]; then
+    echo "At least one true"
+else
+    echo "None true"
+fi
+```
+
+---
+
+## 🔹 7. Nesting `if` statements
+
+```bash
+if [ -f "/etc/passwd" ]; then
+    if [ -r "/etc/passwd" ]; then
+        echo "File exists and is readable"
+    fi
+fi
+```
+
+---
+
+## 🔹 8. One-liner `if` statements
+
+```bash
+[ -f "/etc/passwd" ] && echo "File exists" || echo "File missing"
+```
+
+---
+
+✅ **Key points**:
+
+* Always close `if` with `fi`.
+* Use `[ ]` for POSIX tests, `[[ ]]` for Bash extended tests, `(( ))` for arithmetic.
+* Combine multiple `elif` branches for multiple conditions.
+* Logical operators (`&&`, `||`) can simplify simple checks.
+
+
