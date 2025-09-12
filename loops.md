@@ -317,3 +317,282 @@ In Bash, loops (`for`, `while`, `until`) let you:
 * Run infinitely (until stopped)
 * Control flow with `break`, `continue`, `exit`
 * Use both in **scripts** and **one-liners in terminal**
+
+---
+
+# 🎯 Bash `until` Loop
+
+---
+
+## 🔹 1. Basic Syntax
+
+```bash
+until [ condition ]
+do
+    commands
+done
+```
+
+* Runs **until** the condition becomes **true**
+* Opposite of `while` loop (which runs while condition is true)
+
+---
+
+## 🔹 2. Simple Example
+
+```bash
+count=1
+until [ $count -gt 5 ]
+do
+    echo "Count = $count"
+    ((count++))
+done
+```
+
+👉 Output:
+
+```
+Count = 1
+Count = 2
+Count = 3
+Count = 4
+Count = 5
+```
+
+---
+
+## 🔹 3. Infinite Until Loop
+
+```bash
+until false
+do
+    echo "This runs forever (press Ctrl+C to stop)"
+done
+```
+
+---
+
+## 🔹 4. Reverse Counting
+
+```bash
+n=5
+until [ $n -eq 0 ]
+do
+    echo "Countdown: $n"
+    ((n--))
+done
+echo "Blastoff!"
+```
+
+---
+
+## 🔹 5. Wait for a File to Exist
+
+```bash
+file="/tmp/myfile.txt"
+
+until [ -f "$file" ]
+do
+    echo "Waiting for $file ..."
+    sleep 2
+done
+
+echo "$file is ready!"
+```
+
+---
+
+## 🔹 6. With Break & Continue
+
+```bash
+x=0
+until [ $x -ge 10 ]
+do
+    ((x++))
+    if (( x == 5 )); then
+        echo "Skipping 5"
+        continue
+    fi
+    if (( x == 8 )); then
+        echo "Stopping at 8"
+        break
+    fi
+    echo "x = $x"
+done
+```
+
+---
+
+## 🔹 7. One-Liner in Terminal
+
+```bash
+until ping -c1 google.com &>/dev/null; do echo "No internet... retrying"; sleep 2; done
+echo "Connected!"
+```
+
+---
+
+## 🔹 8. Comparison with `while`
+
+| Feature             | `while` loop                     | `until` loop                     |
+| ------------------- | -------------------------------- | -------------------------------- |
+| Condition           | Runs **while condition is true** | Runs **until condition is true** |
+| Usage style         | "Do this as long as..."          | "Do this until..."               |
+| Infinite by default | `while true; do ...; done`       | `until false; do ...; done`      |
+
+---
+
+✅ **Summary:**
+Use **`while`** when you know what condition must stay true.
+Use **`until`** when you want to wait for a condition to become true (e.g., file exists, process ends, internet available).
+---
+
+
+# 🔹 `break` and `continue` in Bash
+
+---
+
+## 🛑 1. `break` – Exit the Loop Immediately
+
+* Ends the **current loop** entirely.
+* Control moves to the next statement **after** the loop.
+
+### Example: stop when number is 5
+
+```bash
+for i in {1..10}
+do
+    if [ $i -eq 5 ]; then
+        echo "Breaking at $i"
+        break
+    fi
+    echo "i = $i"
+done
+```
+
+👉 Output:
+
+```
+i = 1
+i = 2
+i = 3
+i = 4
+Breaking at 5
+```
+
+---
+
+## 🔄 2. `continue` – Skip Current Iteration
+
+* Skips the **rest of the loop body** for the current iteration.
+* Moves to the **next loop cycle**.
+
+### Example: skip number 5
+
+```bash
+for i in {1..7}
+do
+    if [ $i -eq 5 ]; then
+        echo "Skipping $i"
+        continue
+    fi
+    echo "i = $i"
+done
+```
+
+👉 Output:
+
+```
+i = 1
+i = 2
+i = 3
+i = 4
+Skipping 5
+i = 6
+i = 7
+```
+
+---
+
+## 🔹 3. With `while` Loop
+
+```bash
+n=0
+while [ $n -lt 7 ]
+do
+    ((n++))
+    if [ $n -eq 3 ]; then
+        echo "Continue at $n"
+        continue
+    fi
+    if [ $n -eq 6 ]; then
+        echo "Break at $n"
+        break
+    fi
+    echo "n = $n"
+done
+```
+
+---
+
+## 🔹 4. With `until` Loop
+
+```bash
+x=0
+until [ $x -ge 10 ]
+do
+    ((x++))
+    if (( x == 4 )); then
+        echo "Skipping $x"
+        continue
+    fi
+    if (( x == 8 )); then
+        echo "Breaking at $x"
+        break
+    fi
+    echo "x = $x"
+done
+```
+
+---
+
+## 🔹 5. Nested Loops with `break n`
+
+* You can specify a **numeric argument** to break out of **n levels** of loops.
+
+```bash
+for i in {1..3}; do
+    for j in {1..3}; do
+        if [ $j -eq 2 ]; then
+            echo "Breaking both loops at i=$i, j=$j"
+            break 2   # exit both loops
+        fi
+        echo "i=$i, j=$j"
+    done
+done
+```
+
+👉 Without `break 2`, only the inner loop would stop.
+
+---
+
+## 🔹 6. Real-Life Example (skip hidden files)
+
+```bash
+for file in *; do
+    if [[ $file == .* ]]; then
+        continue   # skip hidden files
+    fi
+    echo "Processing: $file"
+done
+```
+
+---
+
+✅ **Summary:**
+
+* `break` → exit the loop completely
+* `continue` → skip current iteration, go to next
+* `break N` → exit multiple nested loops
+
+
