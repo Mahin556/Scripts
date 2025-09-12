@@ -1,4 +1,4 @@
-### Variable
+## Variable
 
 Used to store and represent data in a memory
 2 types
@@ -140,3 +140,18 @@ printenv   # shows environment variables only
 env        # another way to show environment variables
 ```
 
+Variable Defining in Script
+```
+#!/bin/bash
+# User defined variables
+
+echo "This is User Defined Variables example:-"
+echo
+
+FIRST_NAME="Ram"
+LAST_NAME="Misra"
+
+echo "My name is $FIRST_NAME $LAST_NAME."
+exit 118
+
+```
