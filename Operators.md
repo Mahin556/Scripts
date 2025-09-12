@@ -14,6 +14,20 @@ Used in `(( ))` or with `let`, `expr`, or `$(( ))`.
 | `++`     | Increment (pre/post) |
 | `--`     | Decrement (pre/post) |
 
+```
+a=10; b=3
+
+echo $((a + b))   # 13
+echo $((a - b))   # 7
+echo $((a * b))   # 30
+echo $((a / b))   # 3
+echo $((a % b))   # 1
+echo $((a ** b))  # 1000
+
+((a++))           # post-increment
+echo $a           # 11
+```
+
 ---
 
 # 🔹 2. Relational (Integer Comparison) Operators
@@ -35,6 +49,15 @@ Example:
 if [ "$a" -eq "$b" ]; then
   echo "Equal"
 fi
+
+x=5; y=8
+
+[ $x -eq $y ] && echo "Equal" || echo "Not equal"
+[ $x -ne $y ] && echo "Not equal"
+[ $x -gt $y ] && echo "x > y"
+[ $x -lt $y ] && echo "x < y"
+[ $x -ge 5 ] && echo "x >= 5"
+[ $y -le 10 ] && echo "y <= 10"
 ```
 
 ---
@@ -54,6 +77,17 @@ Example:
 
 ```bash
 if [[ $a == "hello" ]]; then echo "Match"; fi
+
+s1="hello"
+s2="world"
+
+[ "$s1" = "hello" ] && echo "Equal"
+[ "$s1" != "$s2" ] && echo "Not equal"
+[[ "a" < "b" ]] && echo "a < b"
+[[ "z" > "y" ]] && echo "z > y"
+[ -z "" ] && echo "String is empty"
+[ -n "$s1" ] && echo "String is not empty"
+
 ```
 
 ---
@@ -73,6 +107,21 @@ if [[ $a == "hello" ]]; then echo "Match"; fi
 | `-S file` | File is a **socket**                                     |
 | `-L file` | File is a **symbolic link**                              |
 
+```
+file="/etc/passwd"
+
+[ -e "$file" ] && echo "$file exists"
+[ -a "$file" ] && echo "$file exists (using -a)"
+[ -f "$file" ] && echo "$file is a regular file"
+[ -d "/etc" ] && echo "/etc is a directory"
+[ -L "/bin/sh" ] && echo "/bin/sh is a symlink"
+[ -b "/dev/sda" ] && echo "/dev/sda is a block device"
+[ -c "/dev/tty" ] && echo "/dev/tty is a character device"
+[ -p "/tmp/myfifo" ] && echo "/tmp/myfifo is a named pipe"
+[ -S "/var/run/docker.sock" ] && echo "Docker socket exists"
+
+```
+
 ### File Permissions
 | Operator  | Test                        |
 | --------- | --------------------------- |
@@ -83,16 +132,47 @@ if [[ $a == "hello" ]]; then echo "Match"; fi
 | `-g file` | File has **setgid** bit set |
 | `-k file` | File has **sticky bit** set |
 
+```
+[ -r "$file" ] && echo "$file is readable"
+[ -w "$file" ] && echo "$file is writable"
+[ -x "/bin/ls" ] && echo "/bin/ls is executable"
+
+# Special permission bits
+touch testfile
+chmod u+s testfile
+[ -u testfile ] && echo "Setuid bit is set"
+
+chmod g+s testfile
+[ -g testfile ] && echo "Setgid bit is set"
+
+chmod +t testfile
+[ -k testfile ] && echo "Sticky bit is set"
+rm testfile
+```
+
 ### File Size & Content
 | Operator  | Test                               |
 | --------- | ---------------------------------- |
 | `-s file` | File size is **greater than zero** |
+
+```
+[ -s "$file" ] && echo "$file has content (size > 0)"
+
+empty="empty.txt"
+> "$empty"   # create empty file
+[ ! -s "$empty" ] && echo "$empty is empty"
+```
 
 ### File Ownership
 | Operator  | Test                                      |
 | --------- | ----------------------------------------- |
 | `-O file` | File is **owned by current user**         |
 | `-G file` | File is **owned by current user’s group** |
+
+```
+[ -O "$file" ] && echo "$file is owned by current user"
+[ -G "$file" ] && echo "$file is owned by current group"
+```
 
 ### File Timestamps
 | Operator          | Test                                                            |
@@ -101,6 +181,18 @@ if [[ $a == "hello" ]]; then echo "Match"; fi
 | `file1 -ot file2` | `file1` is **older** than `file2`                               |
 | `file1 -ef file2` | `file1` and `file2` are the **same file** (same device & inode) |
 | `-N file`         | File was **modified since last read**                           |
+
+```
+file1="/etc/passwd"
+file2="/etc/hosts"
+
+[ "$file1" -nt "$file2" ] && echo "$file1 is newer than $file2"
+[ "$file1" -ot "$file2" ] && echo "$file1 is older than $file2"
+[ "$file1" -ef "$file1" ] && echo "$file1 and itself are the same file"
+
+cp "$file1" copy.txt
+[ -N copy.txt ] && echo "copy.txt was modified since last read"
+```
 
 ### Examples
 ```bash
@@ -137,6 +229,19 @@ fi
 | `&&`     | AND (inside `[[ ]]` or commands) |    |                                 |
 | \`       |                                  | \` | OR (inside `[[ ]]` or commands) |
 
+```
+a=5; b=10
+
+# AND
+[[ $a -lt 10 && $b -gt 5 ]] && echo "Both true"
+
+# OR
+[[ $a -lt 10 || $b -lt 5 ]] && echo "At least one true"
+
+# NOT
+[[ ! $a -eq 10 ]] && echo "Not equal to 10"
+```
+
 ---
 
 # 🔹 6. Assignment Operators
@@ -150,6 +255,25 @@ fi
 | `/=`     | Divide and assign   |
 | `%=`     | Modulus and assign  |
 
+```
+x=5
+
+((x+=3))   # x = x+3
+echo $x   # 8
+
+((x-=2))   # x = x-2
+echo $x   # 6
+
+((x*=2))   # x = x*2
+echo $x   # 12
+
+((x/=3))   # x = x/3
+echo $x   # 4
+
+((x%=3))   # x = x%3
+echo $x   # 1
+```
+
 ---
 
 # 🔹 7. Conditional Expression Operators
@@ -162,6 +286,19 @@ Used in `[[ ]]` and `(( ))`.
 | `[[ expr ]]` | Advanced conditional test            |
 | `? :`        | Ternary conditional (inside `(( ))`) |
 
+```
+a=7; b=3
+
+((a > b)) && echo "a is greater"
+
+# Using [[ ]]
+[[ $a == 7 && $b == 3 ]] && echo "Match"
+
+# Ternary (inside arithmetic)
+(( result = (a > b ? 100 : 200) ))
+echo $result   # 100
+```
+
 ---
 
 # 🔹 8. Pattern Matching / Regex Operators
@@ -173,6 +310,13 @@ Example:
 
 ```bash
 if [[ $str =~ ^[0-9]+$ ]]; then echo "Number"; fi
+
+file="notes.txt"
+
+[[ $file == *.txt ]] && echo "Ends with .txt"
+
+str="12345"
+[[ $str =~ ^[0-9]+$ ]] && echo "Only digits"
 ```
 
 ---
@@ -188,3 +332,14 @@ if [[ $str =~ ^[0-9]+$ ]]; then echo "Number"; fi
 | `<<`     | Left shift  |            |
 | `>>`     | Right shift |            |
 
+```
+a=6   # 110 in binary
+b=3   # 011 in binary
+
+echo $((a & b))   # 2 (AND)
+echo $((a | b))   # 7 (OR)
+echo $((a ^ b))   # 5 (XOR)
+echo $((~a))      # -7 (NOT)
+echo $((a << 1))  # 12 (shift left)
+echo $((a >> 1))  # 3  (shift right)
+```
