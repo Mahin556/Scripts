@@ -178,3 +178,35 @@ echo "The string is: $str"
 echo "Length of string: ${#str}"
 ```
 
+Assigning String Variables in Bash
+- No spaces are allowed around the = sign.
+- You can use either single quotes ', double quotes ", or no quotes if no spaces/special characters.
+```
+VariableName='value'
+echo $VariableName        # prints value
+
+VariableName="value"
+echo ${VariableName}      # prints value
+
+VariableName=value
+echo "$VariableName"      # prints value
+```
+```
+var1="Hello"
+var2="World"
+var3="!"
+
+var=$var1$var2$var3
+echo $var
+```
+```
+var="${var1}**${var2}**${var3}"
+echo $var
+```
+```
+var=$var1 $var2 $var3   # ❌ Bash thinks $var2 is a command!
+echo "${var1} ${var2} ${var3}"
+```
+
+
+
