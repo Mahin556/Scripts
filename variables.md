@@ -153,5 +153,4 @@ LAST_NAME="Misra"
 
 echo "My name is $FIRST_NAME $LAST_NAME."
 exit 118
-
 ```
