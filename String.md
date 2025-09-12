@@ -50,14 +50,13 @@ last="Misra"
 printf "My name is %s %s\n" "$first" "$last"
 ```
 #### Specify width, padding, and alignment:
+```bash
+printf "|%10s|\n" "Hi"     # Right-align in 10 characters → |        Hi|
+printf "|%-10s|\n" "Hi"    # Left-align  → |Hi        |
+printf "|%5d|\n" 42        # Right-align number → |   42|
+printf "|%-5d|\n" 42       # Left-align number  → |42   |
 ```
-printf "|%10s|\n" "Hi"     # Right-aligned in 10 chars
-printf "|%-10s|\n" "Hi"    # Left-aligned
-```
-```output
-|        Hi|
-|Hi        |
-```
+
 
 
 ```
