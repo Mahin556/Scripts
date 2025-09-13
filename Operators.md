@@ -221,13 +221,13 @@ fi
 
 # 🔹 5. Logical Operators
 
-| Operator | Meaning                          |    |                                 |
-| -------- | -------------------------------- | -- | ------------------------------- |
-| `! expr` | NOT                              |    |                                 |
-| `-a`     | AND (inside `[ ]`)               |    |                                 |
-| `-o`     | OR (inside `[ ]`)                |    |                                 |
-| `&&`     | AND (inside `[[ ]]` or commands) |    |                                 |
-| \`       |                                  | \` | OR (inside `[[ ]]` or commands) |
+| Operator | Meaning                          |                              
+| -------- | -------------------------------- |
+| `! expr` | NOT                              |
+| `-a`     | AND (inside `[ ]`)               |
+| `-o`     | OR (inside `[ ]`)                |
+| `&&`     | AND (inside `[[ ]]` or commands) |    
+| `||`     |  OR (inside `[[ ]]` or commands) |
 
 ```
 a=5; b=10
