@@ -295,3 +295,154 @@ unset file
 echo "${file:?File not defined}"  # Exits with message: File not defined
 
 ```
+
+Perfect 👌 — this screenshot is a **reference sheet** for Bash scripting concepts. I’ll break it down for you with explanations and examples (so you don’t just see the code but also understand why it’s used).
+
+---
+
+### 🔹 **Quoting**
+
+* `''` (single quotes) → no variable expansion
+
+  ```bash
+  echo '$HOME'   # prints literally: $HOME
+  ```
+* `""` (double quotes) → variable expansion
+
+  ```bash
+  echo "$HOME"   # prints: /home/username
+  ```
+
+---
+
+### 🔹 **Backquotes vs `$( )`**
+
+* Backquotes: `` `command` `` → run command substitution.
+* Modern preferred way: `$(command)` (clearer, allows nesting).
+
+  ```bash
+  echo "Today is $(date)"
+  ```
+
+---
+
+### 🔹 **Shell Expansion**
+
+* Pathname expansion: `*`, `?`, `[]`
+
+  ```bash
+  ls *.txt     # all files ending with .txt  
+  ls a*        # all files starting with 'a'  
+  ls ???       # all files with exactly 3 characters
+  ls [A-Z]*    # files starting with uppercase letter
+  ```
+* Brace expansion `{}`
+
+  ```bash
+  touch file{1..5}.txt   # creates file1.txt file2.txt … file5.txt
+  ```
+
+---
+
+### 🔹 **Command Substitution**
+
+* Replaces command output with its value.
+
+  ```bash
+  echo "Today is $(date)"
+  FILESIZE=$(wc -l < /etc/passwd)
+  echo "Lines in passwd: $FILESIZE"
+  ```
+
+---
+
+### 🔹 **Arithmetic Expansion**
+
+* Use `$(( expression ))`
+
+  ```bash
+  a=5
+  b=10
+  echo $((a+b))   # 15
+  echo $((a*2))   # 10
+  ```
+
+---
+
+### 🔹 **Parameter Expansion**
+
+* `$var` → get variable value
+* `${var}` → safer way (especially when followed by characters)
+
+  ```bash
+  NAME="Mahin"
+  echo "My name is $NAME"
+  echo "My name is ${NAME}123"   # avoids confusion
+  ```
+
+---
+
+### 🔹 **Run Command as a Group**
+
+* `{ }` → group multiple commands in one block.
+
+  ```bash
+  { date; echo "This is grouped"; }
+  ```
+
+---
+
+### 🔹 **Exit Status**
+
+* `$?` → holds status code of last command (0 = success, non-zero = error).
+
+  ```bash
+  ls /not/here
+  echo $?   # non-zero (error)
+  ```
+
+---
+
+### 🔹 **Square Brackets (Conditions)**
+
+* `[ ]` or `[[ ]]` → test conditions.
+* Examples:
+
+  ```bash
+  n=50
+  if [ $n -le 100 ]; then
+      echo "This is small value compared to 100."
+  fi
+  ```
+
+---
+
+### 🔹 **Advanced Conditions**
+
+* `[[ $var == [a-z] ]]` → pattern matching.
+* Example:
+
+  ```bash
+  read -p "Enter your name: " name
+  if [[ $name == [a-z]* ]]; then
+      echo "This is alphabetic"
+  else
+      echo "This is not alphabetic"
+  fi
+  ```
+
+---
+
+✅ So this screenshot covers:
+
+* Quoting rules
+* Variable/parameter expansion
+* Shell expansion (`*`, `?`, `[ ]`, `{ }`)
+* Command substitution
+* Arithmetic expansion
+* Pathname expansion (pattern matching)
+* Grouping commands `{ }`
+* Conditions `[ ]` and `[[ ]]`
+
+
+
