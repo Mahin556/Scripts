@@ -45,8 +45,8 @@ x=10
 y=3
 
 # Multiplication
-let "z = x * y"
-echo "$z"      # 30
+let "z=x*y"
+echo "$z     # 30
 
 # Division
 let z=x/y
