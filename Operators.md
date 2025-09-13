@@ -295,7 +295,7 @@ a=7; b=3
 [[ $a == 7 && $b == 3 ]] && echo "Match"
 
 # Ternary (inside arithmetic)
-(( result = (a > b ? 100 : 200) ))
+result=((a > b ? 100 : 200))
 echo $result   # 100
 ```
 
