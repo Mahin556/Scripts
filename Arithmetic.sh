@@ -30,6 +30,9 @@ echo "$((2 ** 3))"  # Exponentiation → 8
 ((a++))
 echo "$a"          # a becomes 6
 
+NUM1=10
+echo $((++NUM1))
+
 ((a += 3))
 echo "$a"          # a becomes 9
 
