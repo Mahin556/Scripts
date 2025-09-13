@@ -227,7 +227,7 @@ fi
 | `-a`     | AND (inside `[ ]`)               |
 | `-o`     | OR (inside `[ ]`)                |
 | `&&`     | AND (inside `[[ ]]` or commands) |    
-| `||`     |  OR (inside `[[ ]]` or commands) |
+| `\|\|`     |  OR (inside `[[ ]]` or commands) |
 
 ```
 a=5; b=10
