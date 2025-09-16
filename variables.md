@@ -304,6 +304,9 @@ When a command produces multiple lines, you can store them in an array:
 FILES=($(ls))
 echo "First file: ${FILES[0]}"
 echo "All files: ${FILES[@]}"
+for file in ${FILES[@]};do
+    echo $file
+done
 ```
 
 ---
