@@ -572,6 +572,37 @@ source myscript.sh
 echo $SCRIPT_VAR   # ✅ inside script
 ```
 
+Here’s the difference between running a script with `./myscript.sh` and `source myscript.sh`:
+
+* **`./myscript.sh`**
+
+  * Executes the script in a **new subshell** (child process).
+  * Any variables, functions, or directory changes (`cd`) inside the script **do not affect your current shell**.
+  * The script needs **execute permission** (`chmod +x myscript.sh`).
+  * The first line (`#!`) defines which shell will run it (e.g., `#!/bin/bash` or `#!/bin/sh`).
+
+* **`source myscript.sh`** (or shorthand: `. myscript.sh`)
+
+  * Executes the script in the **current shell** (no new process).
+  * Any variables, functions, or directory changes inside the script **remain available after execution**.
+  * No need for execute permission.
+  * The shebang (`#!`) is ignored because your current shell directly interprets the script.
+
+**Example:**
+
+```bash
+# myscript.sh
+x=10
+cd /tmp
+
+#!/bin/bash
+mkdir demo
+cd demo
+```
+
+* `./myscript.sh` → Runs in a subshell → `x` is not available, current directory unchanged.
+* `source myscript.sh` → Runs in the current shell → `x=10` stays, and your current directory becomes `/tmp`.
+
 ---
 
 # ✅ Summary
