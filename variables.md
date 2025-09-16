@@ -199,6 +199,10 @@ echo "My name is $FIRST_NAME $LAST_NAME."
 exit 118
 ```
 ```
+controlplane:~$ echo $?
+128
+```
+```
 #!/bin/bash
 var1="Devil"
 var2=23
