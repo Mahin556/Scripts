@@ -87,6 +87,7 @@ printf "%8.3f\n" $num  # Width 8, 3 decimals →    3.142
 | `\\`   | Backslash    | `echo -e "C:\\Path"`       | C:\Path        |
 | `\"`   | Double quote | `echo -e "He said \"Hi\""` | He said "Hi"   |
 | `\a`   | Alert / bell | `echo -e "\a"`             | (system beep)  |
+| `\r`   | Carriage return | `echo -ne "Hello\rWorld"` | World        | Moves the cursor back to the beginning of the current line, without advancing to the next line.
 
 ```bash
 printf "Line1\nLine2\n"
