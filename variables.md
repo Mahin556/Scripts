@@ -87,6 +87,43 @@ Complete list of **commonly defined system/shell variables** (you’ll always se
 | `$$`            | PID of the current shell.                                             |
 | `$PPID`         | PID of the parent process.                                            |
 
+```
+#!/bin/bash
+
+VAR_1=$1
+VAR_2=$2
+echo $0
+echo $1
+echo $2
+echo $#
+echo $*
+VAR_2=$*
+
+echo $@
+echo "$@"
+
+for i in $@;do
+    echo $i
+done
+
+for i in $*;do
+    echo $i
+done
+
+#!/bin/bash
+
+x=10
+arr=(a b c)
+declare -i num=5
+declare -A map=([name]="Mahin" [role]="DevOps")
+
+for var in x arr num map; do
+    echo "Checking variable: $var"
+    declare -p "$var"
+done
+
+```
+
 ---
 
 ## 🔹 Common System-Defined Environment Variables
