@@ -167,12 +167,16 @@ docs/file.txt
 You don’t always need external commands like `basename`. Bash itself can handle this:
 
 ```bash
-FILE="/home/user/docs/report.txt"
-
-echo "${FILE##*/}"   # basename -> report.txt
-echo "${FILE%/*}"    # dirname  -> /home/user/docs
-echo "${FILE##*.}"   # extension -> txt
-echo "${FILE%.*}"    # filename without extension -> /home/user/docs/report
+#!/bin/bash
+FILE="/etc/.nginx/nginx.conf"
+echo "${FILE##*/}"   # basename -> nginx.conf
+echo "${FILE#*/}"   # etc/.nginx/nginx.conf
+echo "${FILE%/*}"    # dirname -> /etc/.nginx
+echo "${FILE%%/*}"    # 
+echo "${FILE##*.}"   # extension-> conf
+echo "${FILE#*.}"   # nginx/nginx.conf
+echo "${FILE%.*}"    # filename without extension -> /etc/.nginx/nginx
+echo "${FILE%%.*}"    # /etc/
 ```
 
 ---
