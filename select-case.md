@@ -93,6 +93,7 @@ calculate () {
   read -p "Enter the first number: " n1
   read -p "Enter the second number: " n2
   echo "$n1 $1 $n2 = " $(bc -l <<< "$n1$1$n2")
+   echo "$n1 $1 $n2 = $(expr $n1 "$1" $n2)" 
 }
 
 PS3="Select the operation: "
