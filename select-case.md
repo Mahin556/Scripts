@@ -47,38 +47,43 @@ done
 ### Example 2 – Calculator (integer operations)
 
 ```bash
-PS3="Select the operation: "
+#!/bin/bash
 
-select opt in add subtract multiply divide quit; do
-  case $opt in
-    add)
-      read -p "Enter first number: " n1
-      read -p "Enter second number: " n2
-      echo "$n1 + $n2 = $(($n1+$n2))"
-      ;;
-    subtract)
-      read -p "Enter first number: " n1
-      read -p "Enter second number: " n2
-      echo "$n1 - $n2 = $(($n1-$n2))"
-      ;;
-    multiply)
-      read -p "Enter first number: " n1
-      read -p "Enter second number: " n2
-      echo "$n1 * $n2 = $(($n1*$n2))"
-      ;;
-    divide)
-      read -p "Enter first number: " n1
-      read -p "Enter second number: " n2
-      echo "$n1 / $n2 = $(($n1/$n2))"
-      ;;
-    quit)
-      break
-      ;;
-    *)
-      echo "Invalid option $REPLY"
-      ;;
-  esac
+PS3="Select the Operation: "
+
+echo "Calculator"
+select opr in addition substraction multiplication division quit; do 
+    case $opr in 
+        addition)
+            read -p "Enter a first number:"  num1
+            read -p "Enter a second number:" num2
+            echo "$num1 + $num2 = $(( $num1 + $num2 ))"
+            ;;
+        substraction)
+            read -p "Enter a first number: " num1
+            read -p "Enter a second number: " num2
+            echo "$num1 - $num2 = $(( $num1 - $num2 ))"
+            ;;
+        multiplication)
+            read -p "Enter a first number: " num1
+            read -p "Enter a second number: " num2
+            echo "$num1 * $num2 = $(( $num1 * $num2 ))"
+            ;;
+        division)
+            read -p "Enter a first number: " num1
+            read -p "Enter a second number: " num2
+            echo "$num1 / $num2 = $(( $num1 / $num2 ))"
+            ;;
+        quit)
+            break
+            ;;
+        *)
+        echo "Invalid option $REPLY"
+            ;;
+    esac
 done
+
+
 ```
 
 ### Example 3 – Advanced Calculator (supports floating numbers with `bc`)
