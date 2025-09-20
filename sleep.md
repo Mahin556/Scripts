@@ -87,11 +87,44 @@ Bash supports floating-point sleeps:
 sleep 0.2   # 200 milliseconds
 ```
 
----
+```
+sleep 7h 30m && mplayer alarm.mp3
 
-✅ In short:
+sleep 1 && echo "one" && sleep 1 && echo "two"
 
-* Use `sleep N` to pause execution.
-* Time units: **s (default), m, h, d**.
-* Works both interactively and inside scripts.
+#!/bin/bash
+SLEEP_INTERVAL="30"
+CURRENT_TIME=$(date +"%T")
+echo "Time before sleep: ${CURRENT_TIME}"
+echo "Sleeping for ${SLEEP_INTERVAL} seconds"
+sleep ${SLEEP_INTERVAL}
+CURRENT_TIME=$(date +"%T")
+echo "Time after sleep: ${CURRENT_TIME}"
 
+#!/bin/bash
+while :
+    do
+        if ping -c 1 www.google.com &> /dev/null
+        then
+        echo "Google is online"
+        break
+        fi
+    sleep 10
+done
+
+while kill -0 $BACK_PID ; do
+    echo "Waiting for the process to end"
+    sleep 1
+done
+
+for (( i = 1 ; i <= 250 ; i++ ));
+    do
+    sleep 1
+    qsub computation"${i}".pbs
+done
+
+```
+
+### References
+- https://phoenixnap.com/kb/linux-sleep
+  
