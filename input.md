@@ -19,14 +19,20 @@ When a script is run with arguments, Bash provides them as variables:
 
 ```bash
 #!/bin/bash
-echo "Script name: $0"
-echo "First arg: $1"
-echo "Second arg: $2"
-echo "All args: $@"
-echo "Arg count: $#"
 
+echo "Script Name:- $0"
+echo "Script first arg:- $1"
+echo "Script second arg:- $2"
+echo "Script args lenght:- $#"
+echo "Script all args:- $@"
+echo "Script all args in one word:- $*"
+
+echo "Before arg position shift"
+echo "\$1-->$1"
 shift
-echo "After shift, first arg: $1"
+echo "After arg position shift"
+echo "\$1-->$1"
+
 ```
 
 ---
