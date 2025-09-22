@@ -25,6 +25,9 @@ echo $((a % b))   # 1
 echo $((a ** b))  # 1000
 
 ((a++))           # post-increment
+((++a))           # pre-increment
+((a--))           # post-decrement
+((--a))           # pre-decrement
 echo $a           # 11
 ```
 
@@ -52,7 +55,11 @@ fi
 
 x=5; y=8
 
+if [[ a -gt b ]]; then     echo "a is greater"; else echo "b is greater";fi
+if [[ a -gt b ]]; then     echo "a is greater";fi
+
 [ $x -eq $y ] && echo "Equal" || echo "Not equal"
+(( $a == $b )) && echo "Equal" || echo "Not equal"
 [ $x -ne $y ] && echo "Not equal"
 [ $x -gt $y ] && echo "x > y"
 [ $x -lt $y ] && echo "x < y"
