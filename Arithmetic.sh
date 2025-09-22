@@ -41,6 +41,10 @@ if (( a > b )); then
     echo "a is greater"
 fi
 
+if [[ a -gt b ]]; then 
+    echo "a is greater"; 
+fi
+
 x=10
 y=3
 
