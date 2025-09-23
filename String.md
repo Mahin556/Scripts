@@ -134,6 +134,8 @@ str="I like apples"
 echo ${str/apples/oranges}     # Replace first → I like oranges
 echo ${str//apples/oranges}    # Replace all   → I like oranges
 echo ${str/ap*/bananas}        # Pattern match → I like bananas
+echo ${string/a} # Remove the first occurrence of 'a'
+echo ${string//a} # Remove all occurrences of 'a'
 ```
 
 ## Searching in Strings
