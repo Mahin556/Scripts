@@ -6,7 +6,6 @@ if [ -z "$directory" ]; then
 fi
 
 
-
 if [ ! -d "$directory" ]; then
 
 
@@ -15,11 +14,7 @@ if [ ! -d "$directory" ]; then
 	exit 1
 fi
 
-
-
 cd "$directory" || exit 1
-
-
 
 for file in *; do
 	if [ -f "$file" ]; then
