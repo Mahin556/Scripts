@@ -78,3 +78,30 @@ if  [[ $a -gt $b ]];then echo "a is greater then b";exit 0 ; else echo "a is les
 
 true && exit 0
 ```
+
+```
+#!/bin/bash
+s1="hello"
+s2="world"
+
+[ "$s1" = "hello" ] && echo "Equal"
+[ "$s1" != "$s2" ] && echo "Not equal"
+
+if [[ -z $s1 ]];then
+        echo "1. Yes string is empty"
+fi
+
+if [[ -n $s2 ]]; then
+        echo "2. Yes string is not empty"
+fi
+
+if [[ ! -z $s1 ]]
+then
+        echo "3. Yes string is not empty"
+fi
+
+if [[ ! -n $s2 ]]
+then
+        echo "4. Yes string is empty"
+fi
+```
