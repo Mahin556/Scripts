@@ -105,3 +105,27 @@ then
         echo "4. Yes string is empty"
 fi
 ```
+```
+#!/bin/bash
+
+file=file1
+
+[[ -e $file ]] && echo "Exist"
+[[ -f $file ]] && echo "Regular file"
+[[ -d $file ]] && echo "Directory"
+[[ -b $file ]] && echo "Binary file"
+[[ -c $file ]] && echo "character device"
+[[ -S $file ]] && echo "Socket file"
+[[ -p $file ]] && echo "PIPE"
+[[ -L $file ]] && echo "Symlink"
+[[ -r $file ]] && echo "Read"
+[[ -w $file ]] && echo "write"
+[[ -x $file ]] && echo "execute"
+[[ -u $file ]] && echo "suid"
+[[ -g $file ]] && echo "sgid"
+[[ -k $file ]] & echo "sticky bit"
+[[ -O $file ]] & echo "user owner"
+[[ -G $file ]] & echo "group owner"
+
+```
+
