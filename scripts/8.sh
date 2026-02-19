@@ -1,0 +1,3 @@
+while IFS=: read -r name id desc; do
+    echo "$id: $name is $desc"
+done < data.txt
