@@ -1,3 +1,4 @@
+```bash
 #!/bin/bash
 
 echo "Enter fruite"
@@ -17,4 +18,10 @@ case $fruite in
 		echo "Unknown fruite"
 		;;
 esac
+```
 
+---
+
+```bash
+
+```
