@@ -6,6 +6,11 @@ echo $SHELL
 cat /etc/shells
 
 bash <script>
+
+bash -n <script> #check systax of script
+
+ctrl + z #to put vim in backgroud 
+fg #to put vim in foreground
 ```
 
 ---
